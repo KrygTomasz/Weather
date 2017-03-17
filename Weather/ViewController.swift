@@ -10,8 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var weather = DataModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        weather.downloadData {
+            print(self.weather.temp)
+            
+        }
         // Do any additional setup after loading the view, typically from a nib.
     }
 
