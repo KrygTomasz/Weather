@@ -12,58 +12,72 @@ class ViewController: UIViewController {
 
     @IBOutlet var backgroundView: UIView! {
         didSet {
-            backgroundView.backgroundColor = UIColor.init(red: 1, green: 1, blue: 0.5, alpha: 1)
+            backgroundView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 1, alpha: 1)
         }
     }
-    @IBOutlet weak var currentTemperature: UILabel!
-    @IBOutlet weak var cityLabel: UILabel!
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
-            tableView.delegate = self
-            tableView.dataSource = self
+            let cvCellNib = UINib(nibName: "WeatherDataCVCell", bundle: nil)
+            collectionView.register(cvCellNib, forCellWithReuseIdentifier: "WeatherDataCVCell")
+            collectionView.delegate = self
+            collectionView.dataSource = self
         }
     }
     
-    var weather = WSCurrentWeather()
+    let CELLS_FOR_ROW: CGFloat = 1
+    let CELLS_FOR_COLUMN: CGFloat = 1
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        weather.downloadData(for: "Gliwice", completion:  {
-            self.setView()
-        })
         
-    }
-    
-    private func setView() {
-        currentTemperature.text = weather.temp
-        cityLabel.text = weather.location
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-
 }
 
-extension ViewController : UITableViewDelegate, UITableViewDataSource {
+extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.backgroundColor = UIColor.clear
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherDataCVCell", for: indexPath) as? WeatherDataCVCell else {
+            return UICollectionViewCell()
+        }
+        cell.setView()
         return cell
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let alpha = (200 - tableView.contentOffset.y) / 200
-        print(alpha)
-        currentTemperature.textColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: alpha)
+}
+
+extension ViewController : UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = collectionView.bounds.width/CELLS_FOR_ROW
+        let cellHeight = collectionView.bounds.height/CELLS_FOR_COLUMN
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
     
 }
+    
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let alpha = (200 - tableView.contentOffset.y) / 200
+//        print(alpha)
+//        currentTemperature.textColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: alpha)
+//    }
+
+

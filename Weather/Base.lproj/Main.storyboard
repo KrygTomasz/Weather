@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,68 +20,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4YE-WA-czY">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yOd-Eb-wO0">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4eN-BQ-sHC">
-                                        <rect key="frame" x="0.0" y="215.5" width="375" height="431.5"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </tableView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dZf-in-6QW">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="215.5"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TQi-GB-lS2">
-                                                <rect key="frame" x="78.5" y="81" width="218" height="119.5"/>
-                                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="100"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ps-12-Kgs">
-                                                <rect key="frame" x="143.5" y="18" width="89" height="48"/>
-                                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="40"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="TQi-GB-lS2" secondAttribute="bottom" constant="15" id="5pd-A8-yEo"/>
-                                            <constraint firstItem="TQi-GB-lS2" firstAttribute="centerX" secondItem="dZf-in-6QW" secondAttribute="centerX" id="a2A-2b-O8b"/>
-                                            <constraint firstItem="3Ps-12-Kgs" firstAttribute="centerX" secondItem="dZf-in-6QW" secondAttribute="centerX" id="cdh-jl-Nq6"/>
-                                            <constraint firstItem="TQi-GB-lS2" firstAttribute="top" secondItem="3Ps-12-Kgs" secondAttribute="bottom" constant="15" id="mrJ-yx-8NX"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="4eN-BQ-sHC" secondAttribute="trailing" id="3DO-kj-lVy"/>
-                                    <constraint firstItem="4eN-BQ-sHC" firstAttribute="top" secondItem="dZf-in-6QW" secondAttribute="bottom" id="5fX-pc-Eb3"/>
-                                    <constraint firstAttribute="bottom" secondItem="4eN-BQ-sHC" secondAttribute="bottom" id="Bb7-rT-Wlp"/>
-                                    <constraint firstItem="4eN-BQ-sHC" firstAttribute="height" secondItem="4YE-WA-czY" secondAttribute="height" multiplier="2/3" id="Keh-D0-rWw"/>
-                                    <constraint firstAttribute="trailing" secondItem="dZf-in-6QW" secondAttribute="trailing" id="ZCh-At-M0V"/>
-                                    <constraint firstItem="4eN-BQ-sHC" firstAttribute="leading" secondItem="4YE-WA-czY" secondAttribute="leading" id="uY6-bR-C05"/>
-                                    <constraint firstItem="dZf-in-6QW" firstAttribute="leading" secondItem="4YE-WA-czY" secondAttribute="leading" id="vJB-vI-sZg"/>
-                                    <constraint firstItem="dZf-in-6QW" firstAttribute="top" secondItem="4YE-WA-czY" secondAttribute="top" id="yWm-CD-SrC"/>
-                                </constraints>
-                            </view>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fBR-5f-AB0">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="CJy-1D-0hM">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="4YE-WA-czY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="aTZ-5d-UVs"/>
-                            <constraint firstAttribute="trailing" secondItem="4YE-WA-czY" secondAttribute="trailing" id="hHC-jR-mN6"/>
-                            <constraint firstItem="4YE-WA-czY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="lem-KZ-5yo"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="4YE-WA-czY" secondAttribute="bottom" id="w7N-Ee-ZoC"/>
+                            <constraint firstItem="yOd-Eb-wO0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="L97-Mm-yGw"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yOd-Eb-wO0" secondAttribute="bottom" id="P79-Jz-BTb"/>
+                            <constraint firstItem="yOd-Eb-wO0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="TqX-9F-gkG"/>
+                            <constraint firstAttribute="trailing" secondItem="yOd-Eb-wO0" secondAttribute="trailing" id="aLz-9u-IFz"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="backgroundView" destination="8bC-Xf-vdC" id="hqi-1q-hjh"/>
-                        <outlet property="cityLabel" destination="3Ps-12-Kgs" id="tAf-EC-Q6j"/>
-                        <outlet property="currentTemperature" destination="TQi-GB-lS2" id="uQk-F0-Nkn"/>
-                        <outlet property="tableView" destination="4eN-BQ-sHC" id="8rV-m4-d1x"/>
+                        <outlet property="collectionView" destination="yOd-Eb-wO0" id="5aN-5W-O3h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="140" y="132.68365817091455"/>
         </scene>
     </scenes>
 </document>
