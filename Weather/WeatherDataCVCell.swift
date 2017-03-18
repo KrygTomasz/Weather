@@ -15,9 +15,9 @@ class WeatherDataCVCell: UICollectionViewCell {
         // Initialization code
     }
 
-    func setView() {
+    func setView(for city: String = "Katowice") {
         let weatherView = WeatherView.instanceFromNib()
-        weatherView.setData(for: "NewYork")
+        weatherView.setData(for: city)
         weatherView.frame = self.bounds
         self.addSubview(weatherView)
     }

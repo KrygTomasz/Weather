@@ -28,10 +28,10 @@ class WeatherView: UIView {
     }
     
     func setData(for city: String = "Katowice") {
-        self.setView()
-//        weather.downloadData(for: city, completion:  {
-//            self.setView()
-//        })
+//        self.setView()
+        weather.downloadData(for: city, completion:  {
+            self.setView()
+        })
         
     }
     
@@ -53,11 +53,13 @@ class WeatherView: UIView {
 extension WeatherView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 20
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell =  UITableViewCell()
+        cell.backgroundColor = UIColor.clear
+        return cell
     }
     
 }
