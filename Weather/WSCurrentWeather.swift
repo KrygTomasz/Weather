@@ -1,5 +1,5 @@
 //
-//  DataModel.swift
+//  WSCurrentWeather.swift
 //  Weather
 //
 //  Created by Kryg Tomasz on 16.03.2017.
@@ -8,7 +8,7 @@
 
 import Alamofire
 
-class DataModel {
+class WSCurrentWeather {
     
     private var _date: Double?
     private var _temp: String?
@@ -16,7 +16,9 @@ class DataModel {
     private var _weather: String?
     typealias JSONStandard = Dictionary<String, AnyObject>
     
-    let url = URL(string: "http://api.openweathermap.org/data/2.5/weather?q=Katowice&appid=1e3d7a227d96d9db01d4b5df9c8773d4")!
+    let urlString = "http://api.openweathermap.org/data/2.5/weather?q="
+    private var city: String = "Katowice"
+    let appID = "&appid=1e3d7a227d96d9db01d4b5df9c8773d4"
     
     var date: String {
         guard let dateNumber: Double = _date else { return "Invalid date" }
@@ -39,7 +41,15 @@ class DataModel {
         return _weather ?? "Invalid weather"
     }
     
-    func downloadData(completion: @escaping ()->()) {
+    var url: URL {
+        let address: String = urlString+"\(city)"+appID
+        let urlAdress: URL = URL(string: address)!
+        return urlAdress
+    }
+    
+    func downloadData(for city: String = "Katowice", completion: @escaping ()->()) {
+        
+        self.city = city
         
         Alamofire.request(
             url,
