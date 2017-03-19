@@ -6,4 +6,8 @@
 //  Copyright © 2017 Kryg Tomek. All rights reserved.
 //
 
-import Foundation
+import Alamofire
+
+class WSHourForecast {
+    
+}

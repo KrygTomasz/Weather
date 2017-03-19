@@ -16,9 +16,9 @@ class WSCurrentWeather {
     private var _weather: String?
     typealias JSONStandard = Dictionary<String, AnyObject>
     
-    let urlString = "http://api.openweathermap.org/data/2.5/weather?q="
+    private let urlString = "http://api.openweathermap.org/data/2.5/weather?q="
     private var city: String = "Katowice"
-    let appID = "&appid=1e3d7a227d96d9db01d4b5df9c8773d4"
+    private let appID = GlobalValues.APPID
     
     var date: String {
         guard let dateNumber: Double = _date else { return "Invalid date" }
@@ -43,7 +43,10 @@ class WSCurrentWeather {
     
     var url: URL {
         let address: String = urlString+"\(city)"+appID
-        let urlAdress: URL = URL(string: address)!
+        guard let encodedAddress: String = address.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) else {
+            return URL(string: urlString)!
+        }
+        let urlAdress: URL = URL(string: encodedAddress)!
         return urlAdress
     }
     
@@ -76,8 +79,9 @@ class WSCurrentWeather {
                 }
                 
                 completion()
-            
-        })
+                
+            })
     }
     
 }
+

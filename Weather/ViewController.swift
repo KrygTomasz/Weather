@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     let CELLS_FOR_ROW: CGFloat = 1
     let CELLS_FOR_COLUMN: CGFloat = 1
     
-    var cities: [String] = ["Katowice", "California"]
+    var cities: [String] = ["Żywiec", "Miami"]
     
     override func viewDidLoad() {
         
