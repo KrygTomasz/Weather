@@ -21,8 +21,8 @@ class WeatherView: UIView {
         }
     }
     
-    //var weather = WSCurrentWeather()
-    var weather = WSDailyForecast()
+    var weather = WSCurrentWeather()
+    //var weather = WSDailyForecast()
     
     class func instanceFromNib() -> WeatherView {
         return UINib(nibName: "WeatherView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! WeatherView
@@ -31,7 +31,7 @@ class WeatherView: UIView {
     func setData(for city: String = "Katowice") {
 //        self.setView()
         weather.downloadData(for: city, completion:  {
-            //self.setView()
+            self.setView()
         })
         
     }

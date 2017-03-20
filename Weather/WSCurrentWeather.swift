@@ -11,7 +11,7 @@ import Alamofire
 class WSCurrentWeather {
     
     private var _date: Double?
-    private var _temp: String?
+    private var _temp: Double?
     private var _location: String?
     private var _weather: String?
     typealias JSONStandard = Dictionary<String, AnyObject>
@@ -30,7 +30,9 @@ class WSCurrentWeather {
     }
     
     var temp: String {
-        return _temp ?? "Invalid temperature"
+        guard let temperature: Double = _temp else { return "Invalid temperature" }
+        let formattedTemperature = String(format: "%.0f °C", temperature)
+        return formattedTemperature
     }
     
     var location: String {
@@ -72,7 +74,7 @@ class WSCurrentWeather {
                     let name = dict["name"] as? String,
                     let dt = dict["dt"] as? Double {
                     
-                    self._temp = String(format: "%.0f °C", temp - 273.15)
+                    self._temp = temp - 273.15
                     self._weather = weather
                     self._location = name
                     self._date = dt

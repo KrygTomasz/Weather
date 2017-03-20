@@ -10,10 +10,15 @@ import Alamofire
 
 class WSDailyForecast {
     
-    private var _date: Double?
-    private var _temp: String?
     private var _location: String?
-    //private var _weather: String?
+    private var _dates: [Double?] = []
+    private var _days: [Double?] = []
+    private var _mins: [Double?] = []
+    private var _maxs: [Double?] = []
+    private var _nights: [Double?] = []
+    private var _pressures: [Double?] = []
+    private var _humidities: [Double?] = []
+    private var _weatherIds: [Int?] = []
     typealias JSONStandard = Dictionary<String, AnyObject>
     
     private let urlString = "http://api.openweathermap.org/data/2.5/forecast/daily?q="
@@ -22,26 +27,57 @@ class WSDailyForecast {
     private let days: String = "&cnt=3"
     private let appID = GlobalValues.APPID
     
-    var date: String {
-        guard let dateNumber: Double = _date else { return "Invalid date" }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .none
-        let date = Date(timeIntervalSince1970: dateNumber)
-        return dateFormatter.string(from: date)
-    }
-    
-    var temp: String {
-        return _temp ?? "Invalid temperature"
-    }
-    
     var location: String {
         return _location ?? "Invalid location"
     }
-//    
-//    var weather: String {
-//        return _weather ?? "Invalid weather"
-//    }
+    
+    var dayOfWeeks: [Int] {
+        var weekDays: [Int] = []
+        for date in _dates {
+            if let dateNumber: Double = date {
+                let date = Date(timeIntervalSince1970: dateNumber)
+                let calendar = Calendar(identifier: .gregorian)
+                let weekDay = calendar.component(.weekday, from: date)
+                weekDays.append(weekDay)
+            } else {
+                weekDays.append(-1)
+            }
+        }
+        return weekDays
+    }
+    
+    var dayTemperatures: [String] {
+        let dayTemps = formatTemperatures(temperatures: _days)
+        return dayTemps
+    }
+    
+    var minTemperatures: [String] {
+        let minTemps = formatTemperatures(temperatures: _mins)
+        return minTemps
+    }
+    
+    var maxTemperatures: [String] {
+        let maxTemps = formatTemperatures(temperatures: _maxs)
+        return maxTemps
+    }
+    
+    var nightTemperatures: [String] {
+        let nightTemps = formatTemperatures(temperatures: _nights)
+        return nightTemps
+    }
+    
+    private func formatTemperatures(temperatures: [Double?]) -> [String] {
+        var temps: [String] = []
+        for temp in temperatures {
+            if let temperature: Double = temp {
+                let formattedTemperature = String(format: "%.0f °C", temperature)
+                temps.append(formattedTemperature)
+            } else {
+                temps.append("Null °C")
+            }
+        }
+        return temps
+    }
     
     var url: URL {
         let address: String = urlString+"\(city)"+units+days+appID
@@ -83,9 +119,10 @@ class WSDailyForecast {
                             let weather = weatherArray[0] as? JSONStandard,
                             let id = weather["id"] as? Int
                         {
+                            self._location = name
+                            
                             //self._temp = String(format: "%.0f °C", temp - 273.15)
                             //self._weather = weather
-                            //self._location = name
                             //self._date = dt
                         }
                         
