@@ -21,8 +21,10 @@ class WeatherView: UIView {
         }
     }
     
-    var weather = WSCurrentWeather()
-    //var weather = WSDailyForecast()
+    let DAYS_NUMBER = 5
+    
+    var currentWeather = WSCurrentWeather()
+    var dailyForecast = WSDailyForecast()
     
     class func instanceFromNib() -> WeatherView {
         return UINib(nibName: "WeatherView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! WeatherView
@@ -30,16 +32,24 @@ class WeatherView: UIView {
     
     func setData(for city: String = "Katowice") {
 //        self.setView()
-        weather.downloadData(for: city, completion:  {
-            self.setView()
+        currentWeather.downloadData(for: city, completion:  {
+            self.fillCurrentWeather()
+        })
+        
+        dailyForecast.downloadData(for: city, days: DAYS_NUMBER, completion: {
+            self.fillDailyForecast()
         })
         
     }
     
-    func setView() {
+    func fillCurrentWeather() {
         self.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 1, alpha: 1)
-        cityLabel.text = weather.location
-        temperatureLabel.text = weather.temp
+        cityLabel.text = currentWeather.location
+        temperatureLabel.text = currentWeather.temp
+    }
+    
+    func fillDailyForecast() {
+        print(dailyForecast.dayOfWeeks)
     }
     /*
     // Only override draw() if you perform custom drawing.

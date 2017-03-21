@@ -22,6 +22,7 @@ class ViewController: UIViewController {
             collectionView.register(cvCellNib, forCellWithReuseIdentifier: "WeatherDataCVCell")
             collectionView.delegate = self
             collectionView.dataSource = self
+            collectionView.allowsSelection = false
         }
     }
     
@@ -44,7 +45,7 @@ class ViewController: UIViewController {
     let CELLS_FOR_ROW: CGFloat = 1
     let CELLS_FOR_COLUMN: CGFloat = 1
     
-    var cities: [String] = ["Żywiec", "Miami"]
+    var cities: [String] = ["Żywiec"]//, "Miami"]
     
     override func viewDidLoad() {
         

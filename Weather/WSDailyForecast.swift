@@ -23,8 +23,8 @@ class WSDailyForecast {
     
     private let urlString = "http://api.openweathermap.org/data/2.5/forecast/daily?q="
     private var city: String = "Katowice"
-    private let units: String = "&units=metric"
-    private let days: String = "&cnt=3"
+    private let units: String = "&units=metric&cnt="
+    private var days: Int = 1
     private let appID = GlobalValues.APPID
     
     var location: String {
@@ -80,7 +80,7 @@ class WSDailyForecast {
     }
     
     var url: URL {
-        let address: String = urlString+"\(city)"+units+days+appID
+        let address: String = urlString+"\(city)"+units+"\(days)"+appID
         guard let encodedAddress: String = address.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) else {
             return URL(string: urlString)!
         }
@@ -88,9 +88,10 @@ class WSDailyForecast {
         return urlAdress
     }
     
-    func downloadData(for city: String = "Katowice", completion: @escaping ()->()) {
+    func downloadData(for city: String = "Katowice", days: Int = 1, completion: @escaping ()->()) {
         
         self.city = city
+        self.days = days
         
         Alamofire.request(
             url,
@@ -106,6 +107,8 @@ class WSDailyForecast {
                     let name = city["name"] as? String,
                     let list = dict["list"] as? [JSONStandard]
                 {
+                    self._location = name
+                    
                     for dayData in list {
                         if let dt = dayData["dt"] as? Double,
                             let temp = dayData["temp"] as? JSONStandard,
@@ -114,26 +117,21 @@ class WSDailyForecast {
                             let max = temp["max"] as? Double,
                             let night = temp["night"] as? Double,
                             let pressure = dayData["pressure"] as? Double,
-                            let humidity = dayData["humidity"] as? Int,
+                            let humidity = dayData["humidity"] as? Double,
                             let weatherArray = dayData["weather"] as? [JSONStandard],
                             let weather = weatherArray[0] as? JSONStandard,
                             let id = weather["id"] as? Int
                         {
-                            self._location = name
-                            
-                            //self._temp = String(format: "%.0f °C", temp - 273.15)
-                            //self._weather = weather
-                            //self._date = dt
+                            self._dates.append(dt)
+                            self._days.append(day)
+                            self._mins.append(min)
+                            self._maxs.append(max)
+                            self._nights.append(night)
+                            self._pressures.append(pressure)
+                            self._humidities.append(humidity)
+                            self._weatherIds.append(id)
                         }
-                        
                     }
-                    //                    let temp = main["temp"] as? Double,
-                    //                    let weatherArray = dict["weather"] as? [JSONStandard],
-                    //                    let weather = weatherArray[0]["main"] as? String,
-                    //                    let name = dict["name"] as? String,
-                    //                    let dt = dict["dt"] as? Double {
-                    
-                    
                 }
                 
                 completion()
