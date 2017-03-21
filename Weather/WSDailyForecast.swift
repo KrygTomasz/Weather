@@ -31,16 +31,20 @@ class WSDailyForecast {
         return _location ?? "Invalid location"
     }
     
-    var dayOfWeeks: [Int] {
-        var weekDays: [Int] = []
+    var daysOfWeek: [String] {
+        var weekDays: [String] = []
         for date in _dates {
             if let dateNumber: Double = date {
                 let date = Date(timeIntervalSince1970: dateNumber)
-                let calendar = Calendar(identifier: .gregorian)
-                let weekDay = calendar.component(.weekday, from: date)
+//                let calendar = Calendar(identifier: .gregorian)
+//                let weekDay = calendar.component(.weekday, from: date)
+//                weekDays.append(weekDay)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat  = "EEEE"//"EE" to get short style
+                let weekDay = dateFormatter.string(from: date)//"Sunday"
                 weekDays.append(weekDay)
             } else {
-                weekDays.append(-1)
+                weekDays.append("Undefined")
             }
         }
         return weekDays
@@ -70,7 +74,7 @@ class WSDailyForecast {
         var temps: [String] = []
         for temp in temperatures {
             if let temperature: Double = temp {
-                let formattedTemperature = String(format: "%.0f °C", temperature)
+                let formattedTemperature = String(format: "%.0f", temperature)
                 temps.append(formattedTemperature)
             } else {
                 temps.append("Null °C")

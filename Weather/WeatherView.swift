@@ -16,12 +16,17 @@ class WeatherView: UIView {
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
+            let dailyForecastNib = UINib(nibName: DAILY_CELL, bundle: nil)
+            tableView.register(dailyForecastNib, forCellReuseIdentifier: DAILY_CELL)
             tableView.delegate = self
             tableView.dataSource = self
         }
     }
     
-    let DAYS_NUMBER = 5
+    let DAILY_CELL = "DailyForecastTVCell"
+    let HEIGHT_FOR_HEADER: CGFloat = 32
+    
+    let DAYS_NUMBER = 16
     
     var currentWeather = WSCurrentWeather()
     var dailyForecast = WSDailyForecast()
@@ -49,7 +54,8 @@ class WeatherView: UIView {
     }
     
     func fillDailyForecast() {
-        print(dailyForecast.dayOfWeeks)
+        print(dailyForecast.daysOfWeek)
+        tableView.reloadData()
     }
     /*
     // Only override draw() if you perform custom drawing.
@@ -63,12 +69,33 @@ class WeatherView: UIView {
 
 extension WeatherView: UITableViewDelegate, UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return DAYS_NUMBER
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = DailyForecastView.instanceFromNib()
+        if !dailyForecast.daysOfWeek.isEmpty {
+            let day = dailyForecast.daysOfWeek[section]
+            let dayTemperature = dailyForecast.dayTemperatures[section]
+            let nightTemperature = dailyForecast.nightTemperatures[section]
+            header.setView(day: day, dayTemperature: dayTemperature, nightTemperature: nightTemperature)
+        }
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return HEIGHT_FOR_HEADER
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell =  UITableViewCell()
+        guard let cell =  tableView.dequeueReusableCell(withIdentifier: DAILY_CELL, for: indexPath) as? DailyForecastTVCell else {
+            return UITableViewCell()
+        }
         cell.backgroundColor = UIColor.clear
         return cell
     }
