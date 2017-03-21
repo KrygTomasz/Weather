@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2203EB771E7F0219007E73BE /* GlobalValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2203EB761E7F0219007E73BE /* GlobalValues.swift */; };
+		22413FE71E81CFDC0002E6B4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22413FE61E81CFDC0002E6B4 /* Colors.swift */; };
+		22413FE91E81D0320002E6B4 /* ViewTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22413FE81E81D0320002E6B4 /* ViewTool.swift */; };
 		22503B9E1E7D29270059B667 /* WSHourForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22503B9D1E7D29270059B667 /* WSHourForecast.swift */; };
 		22503BA01E7D29380059B667 /* WSDailyForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22503B9F1E7D29380059B667 /* WSDailyForecast.swift */; };
 		22503BA21E7D3D570059B667 /* WeatherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22503BA11E7D3D570059B667 /* WeatherView.xib */; };
@@ -53,6 +55,8 @@
 		0E5DB1AA6D77B9414F0C7ED5 /* Pods-WeatherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeatherTests/Pods-WeatherTests.release.xcconfig"; sourceTree = "<group>"; };
 		1CE7E4F8B406A497269CC176 /* Pods_WeatherTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2203EB761E7F0219007E73BE /* GlobalValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalValues.swift; sourceTree = "<group>"; };
+		22413FE61E81CFDC0002E6B4 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		22413FE81E81D0320002E6B4 /* ViewTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewTool.swift; sourceTree = "<group>"; };
 		22503B9D1E7D29270059B667 /* WSHourForecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHourForecast.swift; sourceTree = "<group>"; };
 		22503B9F1E7D29380059B667 /* WSDailyForecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDailyForecast.swift; sourceTree = "<group>"; };
 		22503BA11E7D3D570059B667 /* WeatherView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherView.xib; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				2203EB761E7F0219007E73BE /* GlobalValues.swift */,
+				22413FE61E81CFDC0002E6B4 /* Colors.swift */,
+				22413FE81E81D0320002E6B4 /* ViewTool.swift */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -525,12 +531,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2281B6891E819CD1008C3903 /* DailyForecastView.swift in Sources */,
+				22413FE71E81CFDC0002E6B4 /* Colors.swift in Sources */,
 				22DAD1EE1E7B145C00A16FF7 /* Weather.xcdatamodeld in Sources */,
 				22D23AEC1E7B267D0079D784 /* WSCurrentWeather.swift in Sources */,
 				22503BA01E7D29380059B667 /* WSDailyForecast.swift in Sources */,
 				22503B9E1E7D29270059B667 /* WSHourForecast.swift in Sources */,
 				2281B6821E819885008C3903 /* DailyForecastTVCell.swift in Sources */,
 				22DAD1E81E7B145C00A16FF7 /* ViewController.swift in Sources */,
+				22413FE91E81D0320002E6B4 /* ViewTool.swift in Sources */,
 				22503BA71E7D46240059B667 /* WeatherDataCVCell.swift in Sources */,
 				22503BA41E7D3F630059B667 /* WeatherView.swift in Sources */,
 				22DAD1E61E7B145C00A16FF7 /* AppDelegate.swift in Sources */,

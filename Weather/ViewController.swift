@@ -10,11 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet var backgroundView: UIView! {
-        didSet {
-            backgroundView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 1, alpha: 1)
-        }
-    }
+    @IBOutlet var backgroundView: UIView!
     
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -42,14 +38,18 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var bottomView: UIView!
+    
+    
     let CELLS_FOR_ROW: CGFloat = 1
     let CELLS_FOR_COLUMN: CGFloat = 1
     
-    var cities: [String] = ["Żywiec"]//, "Miami"]
+    var cities: [String] = ["Katowice", "Miami"]
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        setViewColors()
         pageControl.numberOfPages = cities.count
         
     }
@@ -58,9 +58,19 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 //    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
 //        collectionView.reloadData()
 //    }
+    
+    func setViewColors() {
+        let topColor = UIColor.init(red: 0, green: 0.2, blue: 0.5, alpha: 1).cgColor
+        let bottomColor = UIColor.init(red: 0, green: 0, blue: 0.3, alpha: 1).cgColor
+        ViewTool.addGradientBackground(to: backgroundView, using: [topColor, bottomColor])
+        ViewTool.addGradientBackground(to: bottomView, using: [bottomColor, topColor])
+    }
     
     func onPageChanged() {
         let indexPath = IndexPath(item: pageControl.currentPage, section: 0)

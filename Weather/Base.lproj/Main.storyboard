@@ -24,7 +24,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yOd-Eb-wO0">
                                 <rect key="frame" x="0.0" y="20" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fBR-5f-AB0">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -46,7 +46,7 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <subviews>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="G1e-07-kcB">
-                                        <rect key="frame" x="47" y="4" width="281.5" height="37"/>
+                                        <rect key="frame" x="47" y="4" width="282" height="37"/>
                                     </pageControl>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fxa-3f-Qog">
                                         <rect key="frame" x="331" y="0.0" width="44" height="44"/>
@@ -82,6 +82,7 @@
                     <connections>
                         <outlet property="addButton" destination="Fxa-3f-Qog" id="pPC-Qk-IrQ"/>
                         <outlet property="backgroundView" destination="8bC-Xf-vdC" id="hqi-1q-hjh"/>
+                        <outlet property="bottomView" destination="5b3-Rr-jcf" id="VqK-mx-poN"/>
                         <outlet property="collectionView" destination="yOd-Eb-wO0" id="5aN-5W-O3h"/>
                         <outlet property="pageControl" destination="G1e-07-kcB" id="8Ku-Rf-WhV"/>
                     </connections>

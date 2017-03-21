@@ -10,9 +10,17 @@ import UIKit
 
 class WeatherView: UIView {
 
-    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel! {
+        didSet {
+            cityLabel.textColor = Colors.LABEL_COLOR
+        }
+    }
     
-    @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var temperatureLabel: UILabel! {
+        didSet {
+            temperatureLabel.textColor = Colors.LABEL_COLOR
+        }
+    }
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -36,24 +44,29 @@ class WeatherView: UIView {
     }
     
     func setData(for city: String = "Katowice") {
-//        self.setView()
         currentWeather.downloadData(for: city, completion:  {
             self.fillCurrentWeather()
         })
         
         dailyForecast.downloadData(for: city, days: DAYS_NUMBER, completion: {
             self.fillDailyForecast()
+            self.refreshBackgroundColor()
         })
         
     }
     
-    func fillCurrentWeather() {
-        self.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 1, alpha: 1)
+    private func refreshBackgroundColor() {
+        let topColor = UIColor.init(red: 0, green: 0.2, blue: 0.5, alpha: 1).cgColor
+        let bottomColor = UIColor.init(red: 0, green: 0, blue: 0.3, alpha: 1).cgColor
+        ViewTool.addGradientBackground(to: self, using: [topColor, bottomColor])
+    }
+    
+    private func fillCurrentWeather() {
         cityLabel.text = currentWeather.location
         temperatureLabel.text = currentWeather.temp
     }
     
-    func fillDailyForecast() {
+    private func fillDailyForecast() {
         print(dailyForecast.daysOfWeek)
         tableView.reloadData()
     }
@@ -98,6 +111,11 @@ extension WeatherView: UITableViewDelegate, UITableViewDataSource {
         }
         cell.backgroundColor = UIColor.clear
         return cell
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print(tableView.contentOffset.y)
+//        tableViewHeight.constant = (tableViewHeight.constant + (tableView.contentOffset.y/8) / 2)
     }
     
 }
