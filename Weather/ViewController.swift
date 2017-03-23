@@ -66,10 +66,12 @@ class ViewController: UIViewController {
 //    }
     
     func setViewColors() {
-        let topColor = UIColor.init(red: 0, green: 0.2, blue: 0.5, alpha: 1).cgColor
-        let bottomColor = UIColor.init(red: 0, green: 0, blue: 0.3, alpha: 1).cgColor
-        ViewTool.addGradientBackground(to: backgroundView, using: [topColor, bottomColor])
-        ViewTool.addGradientBackground(to: bottomView, using: [bottomColor, topColor])
+        //let topColor = UIColor.init(red: 0, green: 0.2, blue: 0.5, alpha: 1).cgColor
+        //let bottomColor = UIColor.init(red: 0, green: 0, blue: 0.3, alpha: 1).cgColor
+        backgroundView.backgroundColor = Colors.MAIN_COLOR
+        bottomView.backgroundColor = Colors.MAIN_COLOR
+        //ViewTool.addGradientBackground(to: backgroundView, using: [topColor, bottomColor])
+        //ViewTool.addGradientBackground(to: bottomView, using: [bottomColor, topColor])
     }
     
     func onPageChanged() {

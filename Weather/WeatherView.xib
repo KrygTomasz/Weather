@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,6 +14,10 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zFw-cY-0q7">
+                    <rect key="frame" x="0.0" y="-0.5" width="375" height="667"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fRX-Kw-NU5" userLabel="Top View">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="333.5"/>
                     <subviews>
@@ -45,35 +48,44 @@
                                 <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="cNl-q0-1jP" secondAttribute="trailing" constant="500" id="r9W-3R-wX1"/>
                             </constraints>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iNp-q5-rMY">
+                            <rect key="frame" x="0.0" y="332.5" width="375" height="1"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="os6-VI-K3N"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="2Cp-TV-hos" firstAttribute="leading" secondItem="fRX-Kw-NU5" secondAttribute="leading" id="1Gw-6M-SAf"/>
+                        <constraint firstAttribute="height" constant="333" id="4cW-uX-ZDV"/>
                         <constraint firstItem="2Cp-TV-hos" firstAttribute="centerY" secondItem="fRX-Kw-NU5" secondAttribute="centerY" id="VF5-Ea-no1"/>
+                        <constraint firstAttribute="trailing" secondItem="iNp-q5-rMY" secondAttribute="trailing" id="dBU-Tz-2n6"/>
                         <constraint firstItem="2Cp-TV-hos" firstAttribute="width" secondItem="fRX-Kw-NU5" secondAttribute="width" id="fnP-es-JTB"/>
                         <constraint firstItem="2Cp-TV-hos" firstAttribute="centerX" secondItem="fRX-Kw-NU5" secondAttribute="centerX" id="ml1-is-cEg"/>
+                        <constraint firstAttribute="bottom" secondItem="iNp-q5-rMY" secondAttribute="bottom" id="p5a-Cf-VFq"/>
+                        <constraint firstItem="iNp-q5-rMY" firstAttribute="leading" secondItem="fRX-Kw-NU5" secondAttribute="leading" id="yIB-ME-Pm6"/>
                     </constraints>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zFw-cY-0q7">
-                    <rect key="frame" x="0.0" y="333.5" width="375" height="333"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </tableView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="fRX-Kw-NU5" firstAttribute="leading" secondItem="65d-rV-yFV" secondAttribute="leading" id="3Zn-rO-15R"/>
                 <constraint firstItem="zFw-cY-0q7" firstAttribute="leading" secondItem="65d-rV-yFV" secondAttribute="leading" id="LGL-56-dVy"/>
-                <constraint firstItem="zFw-cY-0q7" firstAttribute="height" secondItem="65d-rV-yFV" secondAttribute="height" multiplier="1/2" id="NrZ-oh-jWA"/>
+                <constraint firstItem="zFw-cY-0q7" firstAttribute="height" secondItem="65d-rV-yFV" secondAttribute="height" id="NrZ-oh-jWA"/>
                 <constraint firstAttribute="bottom" secondItem="zFw-cY-0q7" secondAttribute="bottom" id="WOT-0s-cgO"/>
-                <constraint firstItem="fRX-Kw-NU5" firstAttribute="height" secondItem="65d-rV-yFV" secondAttribute="height" multiplier="1/2" id="but-FE-8u5"/>
                 <constraint firstAttribute="trailing" secondItem="zFw-cY-0q7" secondAttribute="trailing" id="hzn-dd-UTF"/>
                 <constraint firstItem="fRX-Kw-NU5" firstAttribute="top" secondItem="65d-rV-yFV" secondAttribute="top" id="jdq-08-hP8"/>
                 <constraint firstAttribute="trailing" secondItem="fRX-Kw-NU5" secondAttribute="trailing" id="yIg-wo-aTW"/>
             </constraints>
             <connections>
                 <outlet property="cityLabel" destination="OBn-3B-Z2Z" id="j3V-kG-jWH"/>
+                <outlet property="separatorView" destination="iNp-q5-rMY" id="CN5-Ar-xeS"/>
                 <outlet property="tableView" destination="zFw-cY-0q7" id="F3q-ev-R3V"/>
                 <outlet property="temperatureLabel" destination="cNl-q0-1jP" id="U0P-Wb-ESt"/>
+                <outlet property="topView" destination="fRX-Kw-NU5" id="0Ta-vL-n9C"/>
+                <outlet property="topViewHeight" destination="4cW-uX-ZDV" id="AGJ-Ff-NCW"/>
             </connections>
         </view>
     </objects>

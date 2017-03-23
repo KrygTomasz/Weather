@@ -12,6 +12,7 @@ class Colors {
     
     static let LABEL_COLOR = UIColor.white
     static let DARK_LABEL_COLOR = UIColor.gray
+    static let MAIN_COLOR = UIColor.init(red: 0, green: 0, blue: 0.3, alpha: 1)
     
 }
 

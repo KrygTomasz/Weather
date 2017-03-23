@@ -10,18 +10,37 @@ import UIKit
 
 class WeatherView: UIView {
 
+    @IBOutlet weak var topView: UIView! {
+        didSet {
+            topView.backgroundColor = Colors.MAIN_COLOR
+            //topView.frame.size.height = UIScreen.main.bounds.height / 2
+            maxTopViewHeight = UIScreen.main.bounds.height / 2
+            minTopViewHeight = UIScreen.main.bounds.height / 4
+            
+        }
+    }
+    @IBOutlet weak var topViewHeight: NSLayoutConstraint! {
+        didSet {
+            topViewHeight.constant = UIScreen.main.bounds.height / 2
+        }
+    }
     @IBOutlet weak var cityLabel: UILabel! {
         didSet {
+            cityLabel.text = ""
             cityLabel.textColor = Colors.LABEL_COLOR
         }
     }
-    
     @IBOutlet weak var temperatureLabel: UILabel! {
         didSet {
+            temperatureLabel.text = ""
             temperatureLabel.textColor = Colors.LABEL_COLOR
         }
     }
-    
+    @IBOutlet weak var separatorView: UIView! {
+        didSet {
+            separatorView.backgroundColor = Colors.DARK_LABEL_COLOR
+        }
+    }
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             let dailyForecastNib = UINib(nibName: DAILY_CELL, bundle: nil)
@@ -36,6 +55,9 @@ class WeatherView: UIView {
     
     let DAYS_NUMBER = 16
     
+    var maxTopViewHeight: CGFloat = 0
+    var minTopViewHeight: CGFloat = 0
+    
     var currentWeather = WSCurrentWeather()
     var dailyForecast = WSDailyForecast()
     
@@ -44,21 +66,24 @@ class WeatherView: UIView {
     }
     
     func setData(for city: String = "Katowice") {
+        self.refreshBackgroundColor()
         currentWeather.downloadData(for: city, completion:  {
             self.fillCurrentWeather()
         })
+        //self.refreshBackgroundColor()
         
         dailyForecast.downloadData(for: city, days: DAYS_NUMBER, completion: {
             self.fillDailyForecast()
-            self.refreshBackgroundColor()
+            //self.refreshBackgroundColor()
         })
-        
+        //self.refreshBackgroundColor()
     }
     
     private func refreshBackgroundColor() {
-        let topColor = UIColor.init(red: 0, green: 0.2, blue: 0.5, alpha: 1).cgColor
-        let bottomColor = UIColor.init(red: 0, green: 0, blue: 0.3, alpha: 1).cgColor
-        ViewTool.addGradientBackground(to: self, using: [topColor, bottomColor])
+        //let topColor = UIColor.init(red: 0, green: 0.2, blue: 0.5, alpha: 1)
+        //let bottomColor = UIColor.init(red: 0, green: 0, blue: 0.3, alpha: 1)
+        self.backgroundColor = Colors.MAIN_COLOR
+        //ViewTool.addGradientBackground(to: self, using: [topColor, bottomColor])
     }
     
     private func fillCurrentWeather() {
@@ -83,7 +108,7 @@ class WeatherView: UIView {
 extension WeatherView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return DAYS_NUMBER
+        return DAYS_NUMBER + 1 // 1 is an empty header on the first place under the topView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -91,17 +116,27 @@ extension WeatherView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            let frame = CGRect(x: 0, y: 0, width: topView.frame.width, height: topView.frame.height)
+            let header = UIView(frame: frame)
+            header.backgroundColor = UIColor.red
+            return header
+        }
         let header = DailyForecastView.instanceFromNib()
         if !dailyForecast.daysOfWeek.isEmpty {
-            let day = dailyForecast.daysOfWeek[section]
-            let dayTemperature = dailyForecast.dayTemperatures[section]
-            let nightTemperature = dailyForecast.nightTemperatures[section]
+            let index = section - 1
+            let day = dailyForecast.daysOfWeek[index]
+            let dayTemperature = dailyForecast.dayTemperatures[index]
+            let nightTemperature = dailyForecast.nightTemperatures[index]
             header.setView(day: day, dayTemperature: dayTemperature, nightTemperature: nightTemperature)
         }
         return header
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return topView.frame.height
+        }
         return HEIGHT_FOR_HEADER
     }
     
@@ -115,7 +150,15 @@ extension WeatherView: UITableViewDelegate, UITableViewDataSource {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        print(tableView.contentOffset.y)
-//        tableViewHeight.constant = (tableViewHeight.constant + (tableView.contentOffset.y/8) / 2)
+        //print(topViewHeight.constant)
+        print(topView.frame.size.height)
+        print(UIScreen.main.bounds.height)
+        topViewHeight.constant = (maxTopViewHeight - (tableView.contentOffset.y))
+        if topViewHeight.constant <= minTopViewHeight {
+            topViewHeight.constant = minTopViewHeight
+        } else {
+            
+        }
     }
     
 }
