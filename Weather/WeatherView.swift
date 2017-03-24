@@ -13,7 +13,6 @@ class WeatherView: UIView {
     @IBOutlet weak var topView: UIView! {
         didSet {
             topView.backgroundColor = Colors.MAIN_COLOR
-            //topView.frame.size.height = UIScreen.main.bounds.height / 2
             let screenHeight = UIScreen.main.bounds.height
             initialTopViewHeight = screenHeight / 2
             minTopViewHeight = screenHeight / 4
@@ -67,7 +66,7 @@ class WeatherView: UIView {
     let DAYS_NUMBER = 16
     
     var initialTopViewHeight: CGFloat = 0
-    var mediumTopViewHeight: CGFloat = 0
+    var topViewHeightWhenLabelSizeDecreases: CGFloat = 0
     var minTopViewHeight: CGFloat = 0
     
     var cityLabelHeight: CGFloat = 0
@@ -88,9 +87,9 @@ class WeatherView: UIView {
     }
     
     func setConstants() {
-        mediumTopViewHeight = cityLabelHeight + temperatureLabelHeight
+        topViewHeightWhenLabelSizeDecreases = cityLabelHeight + temperatureLabelHeight
         minTopViewHeight = 2 * cityLabelHeight
-        tableYOffsetWhenLabelSizeDecreases = initialTopViewHeight - mediumTopViewHeight
+        tableYOffsetWhenLabelSizeDecreases = initialTopViewHeight - topViewHeightWhenLabelSizeDecreases
     }
     
     func setData(for city: String = "Katowice") {
@@ -177,18 +176,23 @@ extension WeatherView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print(tableView.contentOffset.y)
-        topViewHeight.constant = (initialTopViewHeight - (tableView.contentOffset.y))
-        cityLabelDistanceToTop.constant = (maxCityLabelDistanceToTop - (tableView.contentOffset.y))
+        
+        let tableYOffset = tableView.contentOffset.y
+        print("Table Y Offset: \(tableYOffset)")
+        
+        topViewHeight.constant = (initialTopViewHeight - tableYOffset)
+        cityLabelDistanceToTop.constant = (maxCityLabelDistanceToTop - tableYOffset)
+        
         if cityLabelDistanceToTop.constant <= 0 {
             cityLabelDistanceToTop.constant = 0
         }
-        if topViewHeight.constant <= mediumTopViewHeight {
-            var tempHeight = maxTemperatureLabelFontSize - (tableView.contentOffset.y - tableYOffsetWhenLabelSizeDecreases)
-            if tempHeight < minTemperatureLabelFontSize {
-                tempHeight = minTemperatureLabelFontSize
+        
+        if topViewHeight.constant <= topViewHeightWhenLabelSizeDecreases {
+            var newTemperatureLabelHeight = maxTemperatureLabelFontSize - (tableYOffset - tableYOffsetWhenLabelSizeDecreases)
+            if newTemperatureLabelHeight < minTemperatureLabelFontSize {
+                newTemperatureLabelHeight = minTemperatureLabelFontSize
             }
-            temperatureLabel.font = UIFont(name: temperatureLabel.font.fontName, size: tempHeight)
+            temperatureLabel.font = UIFont(name: temperatureLabel.font.fontName, size: newTemperatureLabelHeight)
             if topViewHeight.constant <= minTopViewHeight {
                 topViewHeight.constant = minTopViewHeight
             }
