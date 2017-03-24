@@ -28,6 +28,9 @@ class DailyForecastView: UIView {
         }
     }
     
+    var onHeaderClick: (()->())?
+    var isExpanded: Bool = false
+    
     class func instanceFromNib() -> DailyForecastView {
         return UINib(nibName: "DailyForecastView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! DailyForecastView
     }
@@ -36,7 +39,19 @@ class DailyForecastView: UIView {
         dayLabel.text = day
         dayTemperatureLabel.text = dayTemperature
         nightTemperatureLabel.text = nightTemperature
+        addGesture()
     }
+    
+    private func addGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onHeaderTap))
+        self.addGestureRecognizer(tapGesture)
+    }
+    
+    func onHeaderTap() {
+        guard let click = onHeaderClick else { return }
+        click()
+    }
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

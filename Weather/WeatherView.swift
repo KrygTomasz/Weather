@@ -46,6 +46,11 @@ class WeatherView: UIView {
             temperatureLabelHeight = temperatureLabel.frame.height
         }
     }
+    @IBOutlet weak var temperatureLabelTrailing: NSLayoutConstraint! {
+        didSet {
+
+        }
+    }
     @IBOutlet weak var separatorView: UIView! {
         didSet {
             separatorView.backgroundColor = Colors.DARK_LABEL_COLOR
@@ -139,6 +144,10 @@ extension WeatherView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let header = tableView.headerView(forSection: section) as? DailyForecastView else { return 0 }
+        if header.isExpanded {
+            return 1
+        }
         return 0
     }
     
@@ -150,6 +159,11 @@ extension WeatherView: UITableViewDelegate, UITableViewDataSource {
             return header
         }
         let header = DailyForecastView.instanceFromNib()
+        header.onHeaderClick = {
+            header.isExpanded = !header.isExpanded
+            //tableView.reloadData()
+            print("Header \(section)")
+        }
         if !dailyForecast.daysOfWeek.isEmpty {
             let index = section - 1
             let day = dailyForecast.daysOfWeek[index]

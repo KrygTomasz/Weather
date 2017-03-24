@@ -85,6 +85,7 @@
                 <outlet property="separatorView" destination="iNp-q5-rMY" id="CN5-Ar-xeS"/>
                 <outlet property="tableView" destination="zFw-cY-0q7" id="F3q-ev-R3V"/>
                 <outlet property="temperatureLabel" destination="cNl-q0-1jP" id="U0P-Wb-ESt"/>
+                <outlet property="temperatureLabelTrailing" destination="r9W-3R-wX1" id="VXo-OB-V1Q"/>
                 <outlet property="topView" destination="fRX-Kw-NU5" id="0Ta-vL-n9C"/>
                 <outlet property="topViewHeight" destination="4cW-uX-ZDV" id="AGJ-Ff-NCW"/>
             </connections>
