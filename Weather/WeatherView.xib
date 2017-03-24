@@ -22,17 +22,17 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="333.5"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Cp-TV-hos">
-                            <rect key="frame" x="-0.5" y="72" width="375" height="190"/>
+                            <rect key="frame" x="-0.5" y="0.5" width="375" height="333.5"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNl-q0-1jP">
-                                    <rect key="frame" x="57.5" y="46.5" width="261.5" height="143.5"/>
-                                    <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="120"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBn-3B-Z2Z">
                                     <rect key="frame" x="147.5" y="0.0" width="80.5" height="43"/>
                                     <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="36"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNl-q0-1jP">
+                                    <rect key="frame" x="57.5" y="43.5" width="261.5" height="143.5"/>
+                                    <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="120"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -41,10 +41,9 @@
                             <constraints>
                                 <constraint firstItem="OBn-3B-Z2Z" firstAttribute="centerX" secondItem="2Cp-TV-hos" secondAttribute="centerX" id="0xv-qg-DCi"/>
                                 <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="OBn-3B-Z2Z" secondAttribute="trailing" constant="500" id="2YF-Wk-c4r"/>
-                                <constraint firstAttribute="height" constant="190" id="4zg-Bb-ggi"/>
+                                <constraint firstItem="cNl-q0-1jP" firstAttribute="top" secondItem="OBn-3B-Z2Z" secondAttribute="bottom" id="NHv-FR-PK3"/>
                                 <constraint firstItem="cNl-q0-1jP" firstAttribute="centerX" secondItem="2Cp-TV-hos" secondAttribute="centerX" id="NID-As-nAm"/>
-                                <constraint firstItem="OBn-3B-Z2Z" firstAttribute="top" secondItem="2Cp-TV-hos" secondAttribute="top" id="TYa-zb-xaw"/>
-                                <constraint firstAttribute="bottom" secondItem="cNl-q0-1jP" secondAttribute="bottom" id="jKc-8e-lQt"/>
+                                <constraint firstItem="OBn-3B-Z2Z" firstAttribute="top" secondItem="2Cp-TV-hos" secondAttribute="top" id="nJI-AV-YRV"/>
                                 <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="cNl-q0-1jP" secondAttribute="trailing" constant="500" id="r9W-3R-wX1"/>
                             </constraints>
                         </view>
@@ -65,6 +64,7 @@
                         <constraint firstItem="2Cp-TV-hos" firstAttribute="width" secondItem="fRX-Kw-NU5" secondAttribute="width" id="fnP-es-JTB"/>
                         <constraint firstItem="2Cp-TV-hos" firstAttribute="centerX" secondItem="fRX-Kw-NU5" secondAttribute="centerX" id="ml1-is-cEg"/>
                         <constraint firstAttribute="bottom" secondItem="iNp-q5-rMY" secondAttribute="bottom" id="p5a-Cf-VFq"/>
+                        <constraint firstItem="2Cp-TV-hos" firstAttribute="height" secondItem="fRX-Kw-NU5" secondAttribute="height" id="uWQ-Nr-Ur8"/>
                         <constraint firstItem="iNp-q5-rMY" firstAttribute="leading" secondItem="fRX-Kw-NU5" secondAttribute="leading" id="yIB-ME-Pm6"/>
                     </constraints>
                 </view>
@@ -81,6 +81,7 @@
             </constraints>
             <connections>
                 <outlet property="cityLabel" destination="OBn-3B-Z2Z" id="j3V-kG-jWH"/>
+                <outlet property="cityLabelDistanceToTop" destination="nJI-AV-YRV" id="LwP-5g-ezK"/>
                 <outlet property="separatorView" destination="iNp-q5-rMY" id="CN5-Ar-xeS"/>
                 <outlet property="tableView" destination="zFw-cY-0q7" id="F3q-ev-R3V"/>
                 <outlet property="temperatureLabel" destination="cNl-q0-1jP" id="U0P-Wb-ESt"/>

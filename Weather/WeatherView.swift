@@ -14,8 +14,9 @@ class WeatherView: UIView {
         didSet {
             topView.backgroundColor = Colors.MAIN_COLOR
             //topView.frame.size.height = UIScreen.main.bounds.height / 2
-            maxTopViewHeight = UIScreen.main.bounds.height / 2
-            minTopViewHeight = UIScreen.main.bounds.height / 4
+            let screenHeight = UIScreen.main.bounds.height
+            initialTopViewHeight = screenHeight / 2
+            minTopViewHeight = screenHeight / 4
             
         }
     }
@@ -28,12 +29,22 @@ class WeatherView: UIView {
         didSet {
             cityLabel.text = ""
             cityLabel.textColor = Colors.LABEL_COLOR
+            minTemperatureLabelFontSize = cityLabel.font.pointSize
+            cityLabelHeight = cityLabel.frame.height
+        }
+    }
+    @IBOutlet weak var cityLabelDistanceToTop: NSLayoutConstraint! {
+        didSet {
+            cityLabelDistanceToTop.constant = UIScreen.main.bounds.height / 8
+            maxCityLabelDistanceToTop = UIScreen.main.bounds.height / 8
         }
     }
     @IBOutlet weak var temperatureLabel: UILabel! {
         didSet {
             temperatureLabel.text = ""
             temperatureLabel.textColor = Colors.LABEL_COLOR
+            maxTemperatureLabelFontSize = temperatureLabel.font.pointSize
+            temperatureLabelHeight = temperatureLabel.frame.height
         }
     }
     @IBOutlet weak var separatorView: UIView! {
@@ -55,14 +66,31 @@ class WeatherView: UIView {
     
     let DAYS_NUMBER = 16
     
-    var maxTopViewHeight: CGFloat = 0
+    var initialTopViewHeight: CGFloat = 0
+    var mediumTopViewHeight: CGFloat = 0
     var minTopViewHeight: CGFloat = 0
+    
+    var cityLabelHeight: CGFloat = 0
+    var temperatureLabelHeight: CGFloat = 0
+    
+    var maxCityLabelDistanceToTop: CGFloat = 0
+    
+    var maxTemperatureLabelFontSize: CGFloat = 0
+    var minTemperatureLabelFontSize: CGFloat = 0
+    
+    var tableYOffsetWhenLabelSizeDecreases: CGFloat = 0
     
     var currentWeather = WSCurrentWeather()
     var dailyForecast = WSDailyForecast()
     
     class func instanceFromNib() -> WeatherView {
         return UINib(nibName: "WeatherView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! WeatherView
+    }
+    
+    func setConstants() {
+        mediumTopViewHeight = cityLabelHeight + temperatureLabelHeight
+        minTopViewHeight = 2 * cityLabelHeight
+        tableYOffsetWhenLabelSizeDecreases = initialTopViewHeight - mediumTopViewHeight
     }
     
     func setData(for city: String = "Katowice") {
@@ -149,15 +177,23 @@ extension WeatherView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print(tableView.contentOffset.y)
-        //print(topViewHeight.constant)
-        print(topView.frame.size.height)
-        print(UIScreen.main.bounds.height)
-        topViewHeight.constant = (maxTopViewHeight - (tableView.contentOffset.y))
-        if topViewHeight.constant <= minTopViewHeight {
-            topViewHeight.constant = minTopViewHeight
+        print(tableView.contentOffset.y)
+        topViewHeight.constant = (initialTopViewHeight - (tableView.contentOffset.y))
+        cityLabelDistanceToTop.constant = (maxCityLabelDistanceToTop - (tableView.contentOffset.y))
+        if cityLabelDistanceToTop.constant <= 0 {
+            cityLabelDistanceToTop.constant = 0
+        }
+        if topViewHeight.constant <= mediumTopViewHeight {
+            var tempHeight = maxTemperatureLabelFontSize - (tableView.contentOffset.y - tableYOffsetWhenLabelSizeDecreases)
+            if tempHeight < minTemperatureLabelFontSize {
+                tempHeight = minTemperatureLabelFontSize
+            }
+            temperatureLabel.font = UIFont(name: temperatureLabel.font.fontName, size: tempHeight)
+            if topViewHeight.constant <= minTopViewHeight {
+                topViewHeight.constant = minTopViewHeight
+            }
         } else {
-            
+            temperatureLabel.font = UIFont(name: temperatureLabel.font.fontName, size: maxTemperatureLabelFontSize)
         }
     }
     
