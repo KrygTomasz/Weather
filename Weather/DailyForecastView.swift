@@ -16,6 +16,8 @@ class DailyForecastView: UIView {
         }
     }
     
+    @IBOutlet weak var weatherImageView: UIImageView!
+    
     @IBOutlet weak var dayTemperatureLabel: UILabel! {
         didSet {
             dayTemperatureLabel.textColor = Colors.LABEL_COLOR
@@ -35,10 +37,11 @@ class DailyForecastView: UIView {
         return UINib(nibName: "DailyForecastView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! DailyForecastView
     }
     
-    func setView(day: String, dayTemperature: String, nightTemperature: String) {
+    func setView(day: String, dayTemperature: String, nightTemperature: String, image: UIImage) {
         dayLabel.text = day
         dayTemperatureLabel.text = dayTemperature
         nightTemperatureLabel.text = nightTemperature
+        weatherImageView.image = image
         addGesture()
     }
     

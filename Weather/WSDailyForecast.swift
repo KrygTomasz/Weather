@@ -18,7 +18,7 @@ class WSDailyForecast {
     private var _nights: [Double?] = []
     private var _pressures: [Double?] = []
     private var _humidities: [Double?] = []
-    private var _weatherIds: [Int?] = []
+    private var _ids: [Int?] = []
     typealias JSONStandard = Dictionary<String, AnyObject>
     
     private let urlString = "http://api.openweathermap.org/data/2.5/forecast/daily?q="
@@ -83,6 +83,46 @@ class WSDailyForecast {
         return temps
     }
     
+    var weatherImage: [UIImage] {
+        
+        var images: [UIImage] = []
+        for id in _ids {
+            let image = getImageFor(id: id)
+            images.append(image)
+        }
+        return images
+
+    }
+    
+    private func getImageFor(id: Int?) -> UIImage {
+        
+        guard let weatherId = id else {
+            return UIImage()
+        }
+        
+        switch weatherId {
+        case 200...299:
+            return #imageLiteral(resourceName: "thunder")
+        case 300...399:
+            return #imageLiteral(resourceName: "rain")
+        case 500...599:
+            return #imageLiteral(resourceName: "rain")
+        case 600...699:
+            return #imageLiteral(resourceName: "snow")
+        case 700...799:
+            return #imageLiteral(resourceName: "mist")
+        case 800:
+            return #imageLiteral(resourceName: "clear")
+        case 801:
+            return #imageLiteral(resourceName: "clouds")
+        case 802...899:
+            return #imageLiteral(resourceName: "bigClouds")
+        default:
+            return #imageLiteral(resourceName: "clouds")
+        }
+        
+    }
+
     var url: URL {
         let address: String = urlString+"\(city)"+units+"\(days)"+appID
         guard let encodedAddress: String = address.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) else {
@@ -104,7 +144,7 @@ class WSDailyForecast {
             .responseJSON(completionHandler: {
                 response in
                 let result = response.result
-                print(response.result.value)
+                print("\(response.result.value)")
                 print("Sukces?", response.result.isSuccess)
                 if let dict = result.value as? JSONStandard,
                     let city = dict["city"] as? JSONStandard,
@@ -133,7 +173,7 @@ class WSDailyForecast {
                             self._nights.append(night)
                             self._pressures.append(pressure)
                             self._humidities.append(humidity)
-                            self._weatherIds.append(id)
+                            self._ids.append(id)
                         }
                     }
                 }

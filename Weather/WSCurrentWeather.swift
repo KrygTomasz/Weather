@@ -64,7 +64,7 @@ class WSCurrentWeather {
                 
                 response in
                 let result = response.result
-                print(response.result.value)
+                print("\(response.result.value)")
                 print("Sukces?", response.result.isSuccess)
                 if let dict = result.value as? JSONStandard,
                     let main = dict["main"] as? JSONStandard,

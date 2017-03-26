@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,45 +15,67 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="73"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcZ-9P-nPM">
-                    <rect key="frame" x="8" y="36.5" width="0.0" height="0.0"/>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qeJ-To-FTz">
-                    <rect key="frame" x="331" y="36.5" width="36" height="0.0"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fTU-aT-z3P" userLabel="Container">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="73"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcZ-9P-nPM">
+                            <rect key="frame" x="8" y="36" width="0.0" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3CE-LT-bn9">
+                            <rect key="frame" x="155.5" y="4.5" width="63" height="63"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="3CE-LT-bn9" secondAttribute="height" multiplier="1:1" id="cPY-lz-imr"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qeJ-To-FTz">
+                            <rect key="frame" x="331" y="36" width="36" height="0.0"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="36" id="4aT-Ah-4sj"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kea-Xh-JuK" userLabel="Day Temperature Label">
+                            <rect key="frame" x="295" y="36" width="36" height="0.0"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="36" id="coj-SG-dXJ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="36" id="4aT-Ah-4sj"/>
+                        <constraint firstItem="qeJ-To-FTz" firstAttribute="leading" secondItem="kea-Xh-JuK" secondAttribute="trailing" id="PUc-Xb-iiM"/>
+                        <constraint firstAttribute="trailing" secondItem="qeJ-To-FTz" secondAttribute="trailing" constant="8" id="Rbj-Qc-erl"/>
+                        <constraint firstItem="3CE-LT-bn9" firstAttribute="height" secondItem="fTU-aT-z3P" secondAttribute="height" constant="-10" id="TYf-A6-w5c"/>
+                        <constraint firstItem="3CE-LT-bn9" firstAttribute="centerX" secondItem="fTU-aT-z3P" secondAttribute="centerX" id="W2a-Qs-687"/>
+                        <constraint firstItem="3CE-LT-bn9" firstAttribute="centerY" secondItem="YcZ-9P-nPM" secondAttribute="centerY" id="WeC-d3-Kmg"/>
+                        <constraint firstItem="kea-Xh-JuK" firstAttribute="centerY" secondItem="fTU-aT-z3P" secondAttribute="centerY" id="YJE-3D-VLF"/>
+                        <constraint firstItem="YcZ-9P-nPM" firstAttribute="centerY" secondItem="fTU-aT-z3P" secondAttribute="centerY" id="feA-nH-3dC"/>
+                        <constraint firstItem="YcZ-9P-nPM" firstAttribute="leading" secondItem="fTU-aT-z3P" secondAttribute="leading" constant="8" id="hcD-n5-q9f"/>
+                        <constraint firstItem="qeJ-To-FTz" firstAttribute="centerY" secondItem="fTU-aT-z3P" secondAttribute="centerY" id="vqK-Bx-phy"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kea-Xh-JuK" userLabel="Day Temperature Label">
-                    <rect key="frame" x="295" y="36.5" width="36" height="0.0"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="36" id="coj-SG-dXJ"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="qeJ-To-FTz" firstAttribute="centerY" secondItem="CNN-U1-ADX" secondAttribute="centerY" id="5d9-9Z-Cc8"/>
-                <constraint firstItem="YcZ-9P-nPM" firstAttribute="centerY" secondItem="CNN-U1-ADX" secondAttribute="centerY" id="9Vj-e4-xAD"/>
-                <constraint firstAttribute="trailing" secondItem="qeJ-To-FTz" secondAttribute="trailing" constant="8" id="OYg-iP-fkB"/>
-                <constraint firstItem="kea-Xh-JuK" firstAttribute="centerY" secondItem="CNN-U1-ADX" secondAttribute="centerY" id="TGs-SY-TUz"/>
-                <constraint firstItem="qeJ-To-FTz" firstAttribute="leading" secondItem="kea-Xh-JuK" secondAttribute="trailing" id="Vga-by-gSJ"/>
-                <constraint firstItem="YcZ-9P-nPM" firstAttribute="leading" secondItem="CNN-U1-ADX" secondAttribute="leading" constant="8" id="bu0-oH-Igs"/>
+                <constraint firstAttribute="trailing" secondItem="fTU-aT-z3P" secondAttribute="trailing" id="IVN-gg-cfW"/>
+                <constraint firstAttribute="bottom" secondItem="fTU-aT-z3P" secondAttribute="bottom" id="Pn5-0V-5kp"/>
+                <constraint firstItem="fTU-aT-z3P" firstAttribute="top" secondItem="CNN-U1-ADX" secondAttribute="top" id="TwA-fU-uWy"/>
+                <constraint firstItem="fTU-aT-z3P" firstAttribute="leading" secondItem="CNN-U1-ADX" secondAttribute="leading" id="UWF-o1-mzQ"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="dayLabel" destination="YcZ-9P-nPM" id="bVZ-dR-3aZ"/>
                 <outlet property="dayTemperatureLabel" destination="kea-Xh-JuK" id="xEa-2P-Pfk"/>
                 <outlet property="nightTemperatureLabel" destination="qeJ-To-FTz" id="muk-NW-YBK"/>
+                <outlet property="weatherImageView" destination="3CE-LT-bn9" id="kiz-08-gbL"/>
             </connections>
             <point key="canvasLocation" x="18.5" y="-306.5"/>
         </view>

@@ -105,10 +105,6 @@ class WeatherDataCVCell: UICollectionViewCell {
     var currentWeather = WSCurrentWeather()
     var dailyForecast = WSDailyForecast()
     
-    class func instanceFromNib() -> WeatherView {
-        return UINib(nibName: "WeatherView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! WeatherView
-    }
-    
     func setConstants() {
         topViewHeightWhenLabelSizeDecreases = cityLabelHeight + temperatureLabelHeight
         minTopViewHeight = 2 * cityLabelHeight
@@ -175,7 +171,8 @@ extension WeatherDataCVCell: UITableViewDelegate, UITableViewDataSource {
             let day = dailyForecast.daysOfWeek[section-1]
             let dayTemperature = dailyForecast.dayTemperatures[section-1]
             let nightTemperature = dailyForecast.nightTemperatures[section-1]
-            header.setView(day: day, dayTemperature: dayTemperature, nightTemperature: nightTemperature)
+            let weatherImage = dailyForecast.weatherImage[section-1]
+            header.setView(day: day, dayTemperature: dayTemperature, nightTemperature: nightTemperature, image: weatherImage)
         }
         return header
     }
