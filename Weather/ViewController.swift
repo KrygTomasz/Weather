@@ -126,7 +126,7 @@ extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource 
             return UICollectionViewCell()
         }
         let city = cities[indexPath.item]
-        cell.setView(for: city)
+        cell.setData(for: city)
         return cell
     }
     

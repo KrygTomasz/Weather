@@ -68,6 +68,8 @@ class WeatherView: UIView {
     let DAILY_CELL = "DailyForecastTVCell"
     let HEIGHT_FOR_HEADER: CGFloat = 32
     
+    var headersExpanded: [Bool] = []
+    
     let DAYS_NUMBER = 16
     
     var initialTopViewHeight: CGFloat = 0
@@ -99,22 +101,22 @@ class WeatherView: UIView {
     
     func setData(for city: String = "Katowice") {
         self.refreshBackgroundColor()
+        
+        headersExpanded = [Bool](repeating: false, count: DAYS_NUMBER)
+        
         currentWeather.downloadData(for: city, completion:  {
             self.fillCurrentWeather()
         })
-        //self.refreshBackgroundColor()
         
         dailyForecast.downloadData(for: city, days: DAYS_NUMBER, completion: {
             self.fillDailyForecast()
-            //self.refreshBackgroundColor()
         })
-        //self.refreshBackgroundColor()
     }
     
     private func refreshBackgroundColor() {
         //let topColor = UIColor.init(red: 0, green: 0.2, blue: 0.5, alpha: 1)
         //let bottomColor = UIColor.init(red: 0, green: 0, blue: 0.3, alpha: 1)
-        self.backgroundColor = Colors.MAIN_COLOR
+        //self.backgroundColor = Colors.MAIN_COLOR
         //ViewTool.addGradientBackground(to: self, using: [topColor, bottomColor])
     }
     
@@ -127,6 +129,11 @@ class WeatherView: UIView {
         print(dailyForecast.daysOfWeek)
         tableView.reloadData()
     }
+
+    override func draw(_ rect: CGRect) {
+        self.backgroundColor = Colors.MAIN_COLOR
+    }
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -140,18 +147,21 @@ class WeatherView: UIView {
 extension WeatherView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return DAYS_NUMBER + 1 // 1 is an empty header on the first place under the topView
+        return DAYS_NUMBER + 1 // 1 is an empty header on the first place behind the topView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let header = tableView.headerView(forSection: section) as? DailyForecastView else { return 0 }
-        if header.isExpanded {
-            return 1
+        if section > 0 {
+            let index = section - 1
+            if headersExpanded[index] {
+                return 1
+            }
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let index = section - 1
         if section == 0 {
             let frame = CGRect(x: 0, y: 0, width: topView.frame.width, height: topView.frame.height)
             let header = UIView(frame: frame)
@@ -160,12 +170,12 @@ extension WeatherView: UITableViewDelegate, UITableViewDataSource {
         }
         let header = DailyForecastView.instanceFromNib()
         header.onHeaderClick = {
-            header.isExpanded = !header.isExpanded
-            //tableView.reloadData()
+            self.headersExpanded[index] = !self.headersExpanded[index]
+            let indexPath = IndexPath(item: 0, section: index)
+            tableView.reloadData()
             print("Header \(section)")
         }
         if !dailyForecast.daysOfWeek.isEmpty {
-            let index = section - 1
             let day = dailyForecast.daysOfWeek[index]
             let dayTemperature = dailyForecast.dayTemperatures[index]
             let nightTemperature = dailyForecast.nightTemperatures[index]
