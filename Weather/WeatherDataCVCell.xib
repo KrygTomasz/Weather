@@ -17,27 +17,27 @@
                 <rect key="frame" x="0.0" y="0.0" width="372" height="638"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cr1-jE-qGj" customClass="WeatherView" customModule="Weather" customModuleProvider="target">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cr1-jE-qGj">
                         <rect key="frame" x="0.0" y="0.0" width="372" height="638"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="o2S-6v-yXi">
-                                <rect key="frame" x="0.0" y="-0.5" width="372" height="638"/>
+                                <rect key="frame" x="0.0" y="0.0" width="372" height="638"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xdP-lK-0hu" userLabel="Top View">
-                                <rect key="frame" x="0.0" y="0.0" width="372" height="333.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="372" height="333"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AcU-M9-Hus">
-                                        <rect key="frame" x="-0.5" y="0.5" width="372" height="333.5"/>
+                                        <rect key="frame" x="0.0" y="0.5" width="372" height="333"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kaE-j3-0dB">
-                                                <rect key="frame" x="146" y="0.0" width="80.5" height="43"/>
+                                                <rect key="frame" x="145.5" y="0.0" width="81" height="43"/>
                                                 <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="36"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBH-GL-ZBq">
-                                                <rect key="frame" x="56" y="43.5" width="261.5" height="143.5"/>
+                                                <rect key="frame" x="55.5" y="43" width="262" height="144"/>
                                                 <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="120"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -54,7 +54,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="olP-2h-t0e">
-                                        <rect key="frame" x="0.0" y="332.5" width="372" height="1"/>
+                                        <rect key="frame" x="0.0" y="332" width="372" height="1"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="gHg-U5-rrc"/>
@@ -104,6 +104,7 @@
                 <outlet property="temperatureLabelTrailing" destination="Yd5-si-hTI" id="wxg-4v-lCd"/>
                 <outlet property="topView" destination="xdP-lK-0hu" id="3Oz-Mh-Iz4"/>
                 <outlet property="topViewHeight" destination="3Ke-Yl-6yj" id="v2b-jh-tWg"/>
+                <outlet property="weatherView" destination="Cr1-jE-qGj" id="c41-EZ-1Mn"/>
             </connections>
             <point key="canvasLocation" x="195" y="348"/>
         </collectionViewCell>

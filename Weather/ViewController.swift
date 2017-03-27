@@ -10,7 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet var backgroundView: UIView!
+    @IBOutlet var backgroundView: UIView! {
+        didSet {
+            backgroundView.backgroundColor = Colors.MAIN_COLOR
+        }
+    }
     
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -22,6 +26,11 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var separatorView: UIView! {
+        didSet {
+            separatorView.backgroundColor = Colors.DARK_LABEL_COLOR
+        }
+    }
     @IBOutlet weak var pageControl: UIPageControl! {
         didSet {
             pageControl.hidesForSinglePage = true
@@ -38,7 +47,14 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var bottomView: UIView! {
+        didSet {
+            bottomView.backgroundColor = Colors.MAIN_COLOR
+            //bottomView.backgroundColor = bottomView.backgroundColor?.withAlphaComponent(0.8)
+            let shadowOffset = CGSize(width: 0, height: -10)
+            ViewTool.addShadow(to: bottomView, offset: shadowOffset)
+        }
+    }
     
     
     let CELLS_FOR_ROW: CGFloat = 1
@@ -68,8 +84,6 @@ class ViewController: UIViewController {
     func setViewColors() {
         //let topColor = UIColor.init(red: 0, green: 0.2, blue: 0.5, alpha: 1).cgColor
         //let bottomColor = UIColor.init(red: 0, green: 0, blue: 0.3, alpha: 1).cgColor
-        backgroundView.backgroundColor = Colors.MAIN_COLOR
-        bottomView.backgroundColor = Colors.MAIN_COLOR
         //ViewTool.addGradientBackground(to: backgroundView, using: [topColor, bottomColor])
         //ViewTool.addGradientBackground(to: bottomView, using: [bottomColor, topColor])
     }
@@ -154,6 +168,16 @@ extension ViewController : UICollectionViewDelegateFlowLayout {
         return 0
     }
     
+}
+
+extension ViewController {
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView.collectionViewLayout.invalidateLayout()
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(item: self.pageControl.currentPage, section: 0)
+            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
+    }
 }
     
 //    func scrollViewDidScroll(_ scrollView: UIScrollView) {

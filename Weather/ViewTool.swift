@@ -21,6 +21,17 @@ class ViewTool {
         
     }
     
+    static func addShadow(to view: UIView, offset: CGSize) {
+        
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = offset
+        view.layer.shadowRadius = 10
+        view.layer.shouldRasterize = false
+        view.layer.shadowOpacity = 0.8
+        view.layer.masksToBounds = false
+        
+    }
+    
     static func removeShadow(from view: UIView) {
         
         view.layer.shadowColor = UIColor.clear.cgColor

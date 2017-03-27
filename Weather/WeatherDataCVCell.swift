@@ -14,24 +14,23 @@ class WeatherDataCVCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-//
-//    func setView(for city: String = "Katowice") {
-//        let weatherView = WeatherView.instanceFromNib()
-//        weatherView.frame = self.bounds
-//        weatherView.setConstants()
-//        weatherView.setData(for: city)
-//        self.addSubview(weatherView)
-//    }
-//    
-//}
+    
+    @IBOutlet weak var weatherView: UIView! {
+        didSet {
+            weatherView.backgroundColor = Colors.MAIN_COLOR
+        }
+    }
     
     @IBOutlet weak var topView: UIView! {
         didSet {
             topView.backgroundColor = Colors.MAIN_COLOR
+            //topView.backgroundColor = topView.backgroundColor?.withAlphaComponent(0.8)
             let screenHeight = UIScreen.main.bounds.height
             initialTopViewHeight = screenHeight / 2
             minTopViewHeight = screenHeight / 4
             HEIGHT_FOR_FIRST_HEADER = initialTopViewHeight
+            
+            ViewTool.addShadow(to: topView)
         }
     }
     @IBOutlet weak var topViewHeight: NSLayoutConstraint! {
@@ -82,11 +81,11 @@ class WeatherDataCVCell: UICollectionViewCell {
     
     let DAILY_CELL = "DailyForecastTVCell"
     var HEIGHT_FOR_FIRST_HEADER: CGFloat = 0
+    var HEIGHT_FOR_LAST_HEADER: CGFloat = 44
     let HEIGHT_FOR_HEADER: CGFloat = 40
     
     var headersExpanded: [Bool] = []
-    
-    let DAYS_NUMBER = 16
+    let NUMBER_OF_HEADERS = GlobalValues.NUMBER_OF_DAYS + 2 // 2 - number of unused headers to fit tableView between top and bottom views
     
     var initialTopViewHeight: CGFloat = 0
     var topViewHeightWhenLabelSizeDecreases: CGFloat = 0
@@ -105,7 +104,7 @@ class WeatherDataCVCell: UICollectionViewCell {
     var currentWeather = WSCurrentWeather()
     var dailyForecast = WSDailyForecast()
     
-    func setConstants() {
+    private func setConstants() {
         topViewHeightWhenLabelSizeDecreases = cityLabelHeight + temperatureLabelHeight
         minTopViewHeight = 2 * cityLabelHeight
         tableYOffsetWhenLabelSizeDecreases = initialTopViewHeight - topViewHeightWhenLabelSizeDecreases
@@ -113,13 +112,13 @@ class WeatherDataCVCell: UICollectionViewCell {
     
     func setData(for city: String = "Katowice") {
         setConstants()
-        headersExpanded = [Bool](repeating: false, count: DAYS_NUMBER + 1)
+        headersExpanded = [Bool](repeating: false, count: NUMBER_OF_HEADERS)
         
         currentWeather.downloadData(for: city, completion:  {
             self.fillCurrentWeather()
         })
         
-        dailyForecast.downloadData(for: city, days: DAYS_NUMBER, completion: {
+        dailyForecast.downloadData(for: city, days: GlobalValues.NUMBER_OF_DAYS, completion: {
             self.fillDailyForecast()
         })
     }
@@ -143,11 +142,11 @@ class WeatherDataCVCell: UICollectionViewCell {
 extension WeatherDataCVCell: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return DAYS_NUMBER + 1 // 1 is an empty header on the first place behind the topView
+        return NUMBER_OF_HEADERS
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section > 0 {
+        if section > 0 && section < NUMBER_OF_HEADERS - 1 {
             return 1
         }
         return 0
@@ -157,6 +156,10 @@ extension WeatherDataCVCell: UITableViewDelegate, UITableViewDataSource {
         //let index = section - 1
         if section == 0 {
             let frame = CGRect(x: 0, y: 0, width: topView.frame.width, height: topView.frame.height)
+            let header = UIView(frame: frame)
+            return header
+        } else if section == NUMBER_OF_HEADERS - 1 {
+            let frame = CGRect(x: 0, y: 0, width: weatherView.frame.width, height: HEIGHT_FOR_LAST_HEADER)
             let header = UIView(frame: frame)
             return header
         }
@@ -179,8 +182,9 @@ extension WeatherDataCVCell: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            print(topView.frame.height)
             return HEIGHT_FOR_FIRST_HEADER
+        } else if section == NUMBER_OF_HEADERS - 1 {
+            return HEIGHT_FOR_LAST_HEADER
         }
         return HEIGHT_FOR_HEADER
     }
@@ -194,11 +198,9 @@ extension WeatherDataCVCell: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section > 0 // section=0 is the (unused) section below the topView
-        {
-            if headersExpanded[indexPath.section] {
-                return 50
-            }
+
+        if headersExpanded[indexPath.section] {
+            return 50
         }
         return 0
     }
@@ -209,7 +211,7 @@ extension WeatherDataCVCell: UITableViewDelegate, UITableViewDataSource {
         print("Table Y Offset: \(tableYOffset)")
         
         topViewHeight.constant = (initialTopViewHeight - tableYOffset)
-        cityLabelDistanceToTop.constant = (maxCityLabelDistanceToTop - tableYOffset)
+        cityLabelDistanceToTop.constant = (maxCityLabelDistanceToTop - tableYOffset/2)
         
         if cityLabelDistanceToTop.constant <= 0 {
             cityLabelDistanceToTop.constant = 0

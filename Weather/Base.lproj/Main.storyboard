@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yOd-Eb-wO0">
-                                <rect key="frame" x="0.0" y="20" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fBR-5f-AB0">
                                     <size key="itemSize" width="50" height="50"/>
@@ -36,6 +36,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5b3-Rr-jcf">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KJP-we-p9w">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="W5N-Cd-DA9"/>
+                                        </constraints>
+                                    </view>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="G1e-07-kcB">
                                         <rect key="frame" x="47" y="4" width="282" height="37"/>
                                     </pageControl>
@@ -49,25 +56,28 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.47520884390000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="KJP-we-p9w" firstAttribute="top" secondItem="5b3-Rr-jcf" secondAttribute="top" id="0NZ-nF-Rcw"/>
                                     <constraint firstItem="G1e-07-kcB" firstAttribute="centerY" secondItem="5b3-Rr-jcf" secondAttribute="centerY" id="8U2-SH-1yW"/>
                                     <constraint firstItem="G1e-07-kcB" firstAttribute="centerX" secondItem="5b3-Rr-jcf" secondAttribute="centerX" id="9cS-5K-Fsz"/>
                                     <constraint firstAttribute="height" constant="44" id="KsQ-eU-QRV"/>
+                                    <constraint firstAttribute="trailing" secondItem="KJP-we-p9w" secondAttribute="trailing" id="Yof-Ez-H9G"/>
                                     <constraint firstItem="Fxa-3f-Qog" firstAttribute="height" secondItem="5b3-Rr-jcf" secondAttribute="height" id="ZpX-qJ-gzh"/>
                                     <constraint firstItem="G1e-07-kcB" firstAttribute="width" secondItem="5b3-Rr-jcf" secondAttribute="width" multiplier="3/4" id="aiS-VR-ks2"/>
                                     <constraint firstAttribute="bottom" secondItem="Fxa-3f-Qog" secondAttribute="bottom" id="eL3-8i-S7s"/>
+                                    <constraint firstItem="KJP-we-p9w" firstAttribute="leading" secondItem="5b3-Rr-jcf" secondAttribute="leading" id="nb2-Ze-NuJ"/>
                                     <constraint firstAttribute="trailing" secondItem="Fxa-3f-Qog" secondAttribute="trailing" id="pDx-lX-IaC"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="5b3-Rr-jcf" firstAttribute="top" secondItem="yOd-Eb-wO0" secondAttribute="bottom" id="9JF-BV-0eZ"/>
                             <constraint firstItem="yOd-Eb-wO0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="L97-Mm-yGw"/>
                             <constraint firstItem="yOd-Eb-wO0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="TqX-9F-gkG"/>
                             <constraint firstItem="5b3-Rr-jcf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Vtl-XH-Hkk"/>
                             <constraint firstAttribute="bottom" secondItem="5b3-Rr-jcf" secondAttribute="bottom" id="YI6-w6-6ML"/>
                             <constraint firstAttribute="trailing" secondItem="yOd-Eb-wO0" secondAttribute="trailing" id="aLz-9u-IFz"/>
                             <constraint firstAttribute="trailing" secondItem="5b3-Rr-jcf" secondAttribute="trailing" id="bru-HM-27w"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yOd-Eb-wO0" secondAttribute="bottom" id="ili-w8-eKd"/>
                         </constraints>
                     </view>
                     <connections>
@@ -76,6 +86,7 @@
                         <outlet property="bottomView" destination="5b3-Rr-jcf" id="VqK-mx-poN"/>
                         <outlet property="collectionView" destination="yOd-Eb-wO0" id="5aN-5W-O3h"/>
                         <outlet property="pageControl" destination="G1e-07-kcB" id="8Ku-Rf-WhV"/>
+                        <outlet property="separatorView" destination="KJP-we-p9w" id="uzT-Th-R1H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
