@@ -62,7 +62,7 @@ class WeatherDataCVCell: UICollectionViewCell {
     }
     @IBOutlet weak var temperatureLabelTrailing: NSLayoutConstraint! {
         didSet {
-            
+            temperatureLabelTrailing.constant = 1
         }
     }
     @IBOutlet weak var separatorView: UIView! {
@@ -110,15 +110,16 @@ class WeatherDataCVCell: UICollectionViewCell {
         tableYOffsetWhenLabelSizeDecreases = initialTopViewHeight - topViewHeightWhenLabelSizeDecreases
     }
     
-    func setData(for city: String = "Katowice") {
+    func setData(for location: Location) {
         setConstants()
         headersExpanded = [Bool](repeating: false, count: NUMBER_OF_HEADERS)
+        dailyForecast.clean()
         
-        currentWeather.downloadData(for: city, completion:  {
+        currentWeather.downloadData(for: location, completion:  {
             self.fillCurrentWeather()
         })
         
-        dailyForecast.downloadData(for: city, days: GlobalValues.NUMBER_OF_DAYS, completion: {
+        dailyForecast.downloadData(for: location, days: GlobalValues.NUMBER_OF_DAYS, completion: {
             self.fillDailyForecast()
         })
     }
@@ -206,7 +207,7 @@ extension WeatherDataCVCell: UITableViewDelegate, UITableViewDataSource {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+        temperatureLabelTrailing.constant = 1
         let tableYOffset = tableView.contentOffset.y
         print("Table Y Offset: \(tableYOffset)")
         

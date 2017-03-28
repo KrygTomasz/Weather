@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ViewController: UIViewController {
 
@@ -56,17 +57,20 @@ class ViewController: UIViewController {
         }
     }
     
+    var locationManager: CLLocationManager?
     
     let CELLS_FOR_ROW: CGFloat = 1
     let CELLS_FOR_COLUMN: CGFloat = 1
     
-    var cities: [String] = ["Katowice", "Miami"]
+    var locations: [Location] = []
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        initLocationService()
         setViewColors()
-        pageControl.numberOfPages = cities.count
+        locations.append(Location(name: "Miami"))
+        pageControl.numberOfPages = locations.count
         
     }
 
@@ -77,9 +81,13 @@ class ViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-//    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-//        collectionView.reloadData()
-//    }
+    
+    func initLocationService() {
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestAlwaysAuthorization()
+        locationManager?.startUpdatingLocation()
+    }
     
     func setViewColors() {
         //let topColor = UIColor.init(red: 0, green: 0.2, blue: 0.5, alpha: 1).cgColor
@@ -98,8 +106,9 @@ class ViewController: UIViewController {
     }
     
     private func addNewWeather(for city: String) {
-        cities.append(city)
-        pageControl.numberOfPages = cities.count
+        let location = Location(name: city)
+        locations.append(location)
+        pageControl.numberOfPages = locations.count
         collectionView.reloadData()
     }
     
@@ -132,15 +141,15 @@ class ViewController: UIViewController {
 extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cities.count
+        return locations.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherDataCVCell", for: indexPath) as? WeatherDataCVCell else {
             return UICollectionViewCell()
         }
-        let city = cities[indexPath.item]
-        cell.setData(for: city)
+        let location = locations[indexPath.item]
+        cell.setData(for: location)
         return cell
     }
     
@@ -166,6 +175,34 @@ extension ViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+}
+
+extension ViewController : CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedAlways {
+            if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
+                if CLLocationManager.isRangingAvailable() {
+                    let locationCoordinate = locationManager?.location?.coordinate
+                    let lat = locationCoordinate?.latitude
+                    let long = locationCoordinate?.longitude
+                    print("Latitude: \(locationCoordinate?.latitude)")
+                    print("Longitude: \(locationCoordinate?.longitude)")
+                    let currentLocation = Location(latitude: lat, longitude: long, isLocalizedByDevice: true)
+                    locations.insert(currentLocation, at: 0)
+                    pageControl.numberOfPages = locations.count
+                    collectionView.reloadData()
+                }
+            }
+        } else if status == .denied || status == .notDetermined || status == .restricted {
+            if locations[0].isLocalizedByDevice {
+                locations.remove(at: 0)
+                pageControl.numberOfPages = locations.count
+                collectionView.reloadData()
+            }
+        }
     }
     
 }

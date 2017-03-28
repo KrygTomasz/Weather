@@ -20,9 +20,9 @@ class WSDailyForecast {
     private var _humidities: [Double?] = []
     private var _ids: [Int?] = []
     typealias JSONStandard = Dictionary<String, AnyObject>
-    
-    private let urlString = "http://api.openweathermap.org/data/2.5/forecast/daily?q="
-    private var city: String = "Katowice"
+
+    private let urlString = "http://api.openweathermap.org/data/2.5/forecast/daily?"
+    private var city: String = "q=Katowice"
     private let units: String = "&units=metric&cnt="
     private var days: Int = 1
     private let appID = GlobalValues.APPID
@@ -122,6 +122,18 @@ class WSDailyForecast {
         }
         
     }
+    
+    func clean() {
+        _location = ""
+        _dates = []
+        _days = []
+        _mins = []
+        _maxs = []
+        _nights = []
+        _pressures = []
+        _humidities = []
+        _ids = []
+    }
 
     var url: URL {
         let address: String = urlString+"\(city)"+units+"\(days)"+appID
@@ -132,11 +144,15 @@ class WSDailyForecast {
         return urlAdress
     }
     
-    func downloadData(for city: String = "Katowice", days: Int = 1, completion: @escaping ()->()) {
+    func downloadData(for location: Location, days: Int = 1, completion: @escaping ()->()) {
         
-        self.city = city
+        self.city = location.getStringForRequest()
         self.days = days
+        performRequest(completion: completion)
         
+    }
+    
+    private func performRequest(completion: @escaping ()->()) {
         Alamofire.request(
             url,
             method: .get)

@@ -16,8 +16,8 @@ class WSCurrentWeather {
     private var _weather: String?
     typealias JSONStandard = Dictionary<String, AnyObject>
     
-    private let urlString = "http://api.openweathermap.org/data/2.5/weather?q="
-    private var city: String = "Katowice"
+    private let urlString = "http://api.openweathermap.org/data/2.5/weather?"
+    private var city: String = "q=Katowice"
     private let appID = GlobalValues.APPID
     
     var date: String {
@@ -52,10 +52,14 @@ class WSCurrentWeather {
         return urlAdress
     }
     
-    func downloadData(for city: String = "Katowice", completion: @escaping ()->()) {
+    func downloadData(for location: Location, completion: @escaping ()->()) {
         
-        self.city = city
+        self.city = location.getStringForRequest()
+        performRequest(completion: completion)
         
+    }
+    
+    private func performRequest(completion: @escaping ()->()) {
         Alamofire.request(
             url,
             method: .get)
