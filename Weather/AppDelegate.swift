@@ -8,18 +8,26 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 
 @available(iOS 10.0, *)
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {//, CLLocationManagerDelegate {
 
     var window: UIWindow?
 
+    private var localizationStatus: CLAuthorizationStatus?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        saveLocationStatus()
+        generateShortcutItems()
+        
         return true
     }
+    
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -27,11 +35,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
+        saveLocationStatus()
+        generateShortcutItems()
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        saveLocationStatus()
+        generateShortcutItems()
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
@@ -43,6 +55,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+    }
+    
+    private func saveLocationStatus() {
+        localizationStatus = CLLocationManager.authorizationStatus()
+        print("Localization authorization status: \(localizationStatus?.rawValue)")
+    }
+    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+
+        completionHandler(handleShortcut(for: shortcutItem))
+
+    }
+    
+    func handleShortcut(for shortcutItem: UIApplicationShortcutItem) -> Bool {
+        print("Shortcut handling")
+        
+        var success = false
+        
+        if shortcutItem.type == "kryg.weather.localized" {
+            print("Handling \(shortcutItem.type)")
+            success = true
+        }
+        return success
+    }
+    
+    func generateShortcutItems() {
+        if localizationStatus == CLAuthorizationStatus.authorizedAlways || localizationStatus == CLAuthorizationStatus.authorizedWhenInUse {
+            let icon = UIApplicationShortcutIcon(templateImageName: "locationIcon")
+            let item = UIApplicationShortcutItem(type: "kryg.weather.localized", localizedTitle: "Localization", localizedSubtitle: "", icon: icon, userInfo: nil)
+            UIApplication.shared.shortcutItems = [item]
+        } else {
+            UIApplication.shared.shortcutItems = []
+        }
     }
 
     // MARK: - Core Data stack
@@ -91,4 +136,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
-

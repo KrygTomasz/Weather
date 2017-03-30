@@ -31,7 +31,7 @@ class WSCurrentWeather {
     
     var temp: String {
         guard let temperature: Double = _temp else { return "Invalid temperature" }
-        let formattedTemperature = String(format: "%.0f °C", temperature)
+        let formattedTemperature = String(format: "%.0f°", temperature)
         return formattedTemperature
     }
     

@@ -98,6 +98,7 @@ class ViewController: UIViewController {
     
     func onPageChanged() {
         let indexPath = IndexPath(item: pageControl.currentPage, section: 0)
+        collectionView.isUserInteractionEnabled  = false
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
     
@@ -158,6 +159,9 @@ extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource 
         pageControl.currentPage = Int(self.collectionView.contentOffset.x / pageWidth)
     }
 
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        collectionView.isUserInteractionEnabled  = true
+    }
     
 }
 

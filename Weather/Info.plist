@@ -2,8 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIApplicationShortcutItems</key>
+	<array/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Location is required to check your local weather data.</string>
+	<string>Localization is required to follow your steps, anywhere you go. Always. Just turn it on, please.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>

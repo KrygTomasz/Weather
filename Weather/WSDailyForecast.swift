@@ -35,10 +35,11 @@ class WSDailyForecast {
         var weekDays: [String] = []
         for date in _dates {
             if let dateNumber: Double = date {
+                if weekDays.isEmpty {
+                    weekDays.append("dziś")
+                    continue
+                }
                 let date = Date(timeIntervalSince1970: dateNumber)
-//                let calendar = Calendar(identifier: .gregorian)
-//                let weekDay = calendar.component(.weekday, from: date)
-//                weekDays.append(weekDay)
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat  = "EEEE"//"EE" to get short style
                 let weekDay = dateFormatter.string(from: date)//"Sunday"
@@ -77,7 +78,7 @@ class WSDailyForecast {
                 let formattedTemperature = String(format: "%.0f", temperature)
                 temps.append(formattedTemperature)
             } else {
-                temps.append("Null °C")
+                temps.append("-")
             }
         }
         return temps
