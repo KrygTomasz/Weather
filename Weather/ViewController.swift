@@ -139,6 +139,8 @@ class ViewController: UIViewController {
 
 }
 
+// MARK: - Collection Delegate and DataDource
+
 extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -165,6 +167,8 @@ extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource 
     
 }
 
+// MARK: - Collection DelegateFlowLayout
+
 extension ViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -182,6 +186,8 @@ extension ViewController : UICollectionViewDelegateFlowLayout {
     }
     
 }
+
+// MARK: - Location Delegate
 
 extension ViewController : CLLocationManagerDelegate {
     
@@ -210,6 +216,8 @@ extension ViewController : CLLocationManagerDelegate {
     }
     
 }
+
+// MARK: - Handle rotating device
 
 extension ViewController {
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {

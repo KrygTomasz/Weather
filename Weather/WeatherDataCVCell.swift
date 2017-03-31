@@ -140,6 +140,8 @@ class WeatherDataCVCell: UICollectionViewCell {
     
 }
 
+// MARK: - Table Delegate and DataSource
+
 extension WeatherDataCVCell: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
