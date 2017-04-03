@@ -2,7 +2,7 @@
 //  CurrentWeather+CoreDataClass.swift
 //  
 //
-//  Created by Kryg Tomasz on 31.03.2017.
+//  Created by Kryg Tomasz on 03.04.2017.
 //
 //
 

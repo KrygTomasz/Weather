@@ -63,12 +63,25 @@ class ViewController: UIViewController {
     let CELLS_FOR_COLUMN: CGFloat = 1
     
     var locations: [Location] = []
+    var weatherDatas: [CurrentWeather] = []
+    
+    let ENTITY_NAME = "CurrentWeather"
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         initLocationService()
         setViewColors()
+        if let datas = EntityManager.fetch(from: ENTITY_NAME) as? [CurrentWeather] {
+            weatherDatas = datas
+            print(weatherDatas.count)
+//            SAVE OBJECT FOR TEST:
+//            if let weatherData = EntityManager.createObject(entity: ENTITY_NAME) as? CurrentWeather {
+//                weatherData.location = "Sydney"
+//                weatherData.temperature = 666
+//                weatherData.save()
+//            }
+        }
         locations.append(Location(name: "Miami"))
         pageControl.numberOfPages = locations.count
         

@@ -34,12 +34,23 @@ class EntityManager {
     
     static func remove(_ object: NSManagedObject, from entity: String) {
         guard let appDelegate: AppDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            print("Couldn't remove object from entity \(entity).")
+            print("No AppDelegate.")
             return
         }
         let context = appDelegate.persistentContainer.viewContext
         context.delete(object)
         print("Object successfully deleted from entity \(entity).")
+    }
+    
+    static func createObject(entity: String) -> NSManagedObject? {
+        guard let appDelegate: AppDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            print("No AppDelegate.")
+            return nil
+        }
+        let context = appDelegate.persistentContainer.viewContext
+        var object = NSEntityDescription.insertNewObject(forEntityName: entity, into: context)
+        
+        return object
     }
     
 }
